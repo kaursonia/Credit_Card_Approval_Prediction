@@ -1,0 +1,35 @@
+use capstone_project;
+Select * from cleaned_data;
+
+-- Question 1:Group the customers based on their income type and find the average of their annual income.
+Select type_income, ROUND(AVG(annual_income),2) AS avg_income from cleaned_data
+group by type_income;
+
+-- Question 2: Find the female owners of cars and property.
+Select * from cleaned_data 
+Where Car_Owner="Y" and Propert_Owner="Y" and GENDER = "F" ;
+
+-- Question 3: Find the male customers who are staying with their families.
+Select * from cleaned_data
+Where  GENDER = "M"and Housing_type = "With parents";
+
+-- Question 4: Please list the top five people having the highest income.
+Select * from cleaned_data 
+order by annual_income desc Limit 5; 
+
+
+-- Question 5: How many married people are having bad credit?
+Select Marital_status,COUNT(*) as Bad_Credit_no from cleaned_data
+Where  label = 1 and Marital_status = "Married"
+group by Marital_status;
+
+-- Question 6: What is the highest education level and what is the total count?
+Select Education, count(*) as total_people from cleaned_data 
+where Education = "Higher education"
+group by Eduaction;
+
+-- Question 7: Between married males and females, who is having more bad credit?
+Select label,gender,count(*) AS count_no from cleaned_data
+Where marital_status = "Married" and marital_status ="civil marriage" and label=1
+group by gender
+order by count(*) desc;
